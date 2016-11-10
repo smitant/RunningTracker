@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RunningTracker.Data;
-using WebApplication2.Models.DataEntryModels;
+using RunningTracker.Models.DataEntryModels;
 
-namespace WebApplication2.Controllers
+namespace RunningTracker.Controllers
 {
     public class DataEntryViewModelsController : Controller
     {
@@ -20,9 +20,35 @@ namespace WebApplication2.Controllers
         }
 
         // GET: DataEntryViewModels
+        /*
         public async Task<IActionResult> Index()
         {
-            return View(await _context.DataEntryViewModel.ToListAsync());
+            var users = from m in _context.DataEntryViewModel
+                        select m;
+            string user = User.Identity.Name;
+            if (!String.IsNullOrEmpty(user))
+            {
+                users = users.Where(s => s.Username.Contains(user));
+            }
+
+            return View(await users.ToListAsync());
+        }
+        */
+
+        public async Task<IActionResult> Index(string searchString)
+        {
+            var dates = from m in _context.DataEntryViewModel
+                         select m;
+            
+            string user = User.Identity.Name;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                DateTime compareDate = DateTime.Parse(searchString);
+                dates = dates.Where(s => s.Date.Equals(compareDate));
+            }
+            dates = dates.Where(s => s.Username.Equals(user));
+
+            return View(await dates.ToListAsync());
         }
 
         // GET: DataEntryViewModels/Details/5
@@ -45,6 +71,11 @@ namespace WebApplication2.Controllers
         // GET: DataEntryViewModels/Create
         public IActionResult Create()
         {
+            if (String.IsNullOrEmpty(User.Identity.Name))
+            {
+                
+
+            }
             return View();
         }
 
@@ -53,10 +84,22 @@ namespace WebApplication2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Date,Heartrate,Steps,Username")] DataEntryViewModel dataEntryViewModel)
+        public async Task<IActionResult> Create([Bind("ID,Date,Heartrate,Steps")] DataEntryViewModel dataEntryViewModel)
         {
             if (ModelState.IsValid)
             {
+                var dates = from m in _context.DataEntryViewModel
+                            select m;
+                string user = User.Identity.Name;
+                dates = dates.Where(s => s.Username.Equals(user));
+                foreach (DataEntryViewModel d in dates)
+                {
+                    if (dataEntryViewModel.Date.Equals(d.Date))
+                    {
+                        return View("ErrorDup");
+                    }
+                }
+                dataEntryViewModel.Username = User.Identity.Name;
                 _context.Add(dataEntryViewModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -85,7 +128,7 @@ namespace WebApplication2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Date,Heartrate,Steps,Username")] DataEntryViewModel dataEntryViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Date,Heartrate,Steps")] DataEntryViewModel dataEntryViewModel)
         {
             if (id != dataEntryViewModel.ID)
             {

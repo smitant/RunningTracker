@@ -11,7 +11,7 @@ namespace RunningTracker.Models.DataEntryModels
         public int Heartrate { get; set; }
         public int Steps { get; set; }
         [Required]
-        [Display(Name = "Release Date")]
+        [Display(Name = "Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
