@@ -172,7 +172,7 @@ namespace RunningTracker.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("WebApplication2.Models.DataEntryModels.DataEntryViewModel", b =>
+            modelBuilder.Entity("RunningTracker.Models.DataEntryModels.DataEntryViewModel", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();

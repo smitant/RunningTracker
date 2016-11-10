@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApplication2.Models.DataEntryModels
+namespace RunningTracker.Models.DataEntryModels
 {
     public class DataEntryViewModel
     {

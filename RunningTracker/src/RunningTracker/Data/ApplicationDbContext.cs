@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RunningTracker.Models;
-using WebApplication2.Models.DataEntryModels;
+using RunningTracker.Models.DataEntryModels;
 
 namespace RunningTracker.Data
 {
