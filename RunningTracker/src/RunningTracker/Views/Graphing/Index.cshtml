@@ -1,0 +1,129 @@
+@model WebApplication2.Models.GraphingModel.GraphingModel
+
+@{
+    ViewData["Title"] = "Graph";
+}
+
+<h2>Graph</h2>
+
+<form asp-action="Index">
+    <div class="form-horizontal">
+        <h4>GraphingModel</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<html>
+<head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the line chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+          // Create the data table.
+
+          //have datatable sent in as a parameter, created in model
+        var data1 = new google.visualization.DataTable();
+        data1.addColumn('string', 'Date');
+        data1.addColumn('number', 'Steps');
+          //dates
+        data1.addRows([
+          ['11/9/2016', 3000],
+          ['11/10/2016', 1000],
+          ['11/11/2016', 10000],
+          ['11/12/2016', 1500],
+          ['11/13/2016', 2898]
+        ]);
+
+        // Set chart options
+        var options1 = {'title':'Number of Steps Taken Each Day',
+            //adjust vaxis for date formats
+            //adjust haxis for how squashed it is
+                       ' chartArea': {width: '100%', height: '100%'},
+                       animation: {
+                           "startup": true,
+                           "duration": 2000,
+                           "easing": 'out'
+                       },
+                        //revisit explorer
+                       explorer: {}
+        };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart1 = new google.visualization.LineChart(document.getElementById('lineChart_div'));
+        chart1.draw(data1, options1);
+
+
+          //-------------------------------------------------------------------
+          //------------------------CHART 2------------------------------------
+          //-------------------------------------------------------------------
+
+
+
+          // Create the data table.
+
+          //have datatable sent in as a parameter, created in model
+        var data2 = new google.visualization.DataTable();
+        data2.addColumn('string', 'Date');
+        data2.addColumn('number', 'Steps');
+          //dates
+        data2.addRows([
+          ['11/9/2016', 3000],
+          ['11/10/2016', 1000],
+          ['11/11/2016', 10000],
+          ['11/12/2016', 1500],
+          ['11/13/2016', 2898]
+        ]);
+
+          // Set chart options
+        var options2 = {
+            'title': 'Number of Steps Taken Each Day',
+            //adjust vaxis for date formats
+            //adjust haxis for how squashed it is
+            ' chartArea': { width: '100%', height: '100%' },
+            animation: {
+                "startup": true,
+                "duration": 2000,
+                "easing": 'out'
+            },
+            //revisit explorer
+            explorer: {}
+        };
+
+          // Instantiate and draw our chart, passing in some options.
+        var chart2 = new google.visualization.BarChart(document.getElementById('barChart_div'));
+        chart2.draw(data2, options2);
+
+
+
+      }
+    </script>
+</head>
+
+<body>
+    <!--Div that will hold the line chart-->
+    <div id="lineChart_div"></div>
+    <!--Put formatting in between charts-->
+    <div id="barChart_div"></div>
+</body>
+</html>
