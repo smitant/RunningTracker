@@ -22,15 +22,17 @@
                 @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Heartrate)
+                @Html.DisplayNameFor(model => model.HeartrateAvg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HeartrateMax)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HeartrateMin)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Steps)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Username)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -40,13 +42,16 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Heartrate)
+                @Html.DisplayFor(modelItem => item.HeartrateAvg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeartrateMax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeartrateMin)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Steps)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

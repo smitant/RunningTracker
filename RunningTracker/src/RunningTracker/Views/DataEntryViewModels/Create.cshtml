@@ -8,7 +8,7 @@
 
 <form asp-action="Create">
     <div class="form-horizontal">
-        <h4>DataEntryViewModel</h4>
+        <h4>What where your running stats for today?</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
@@ -19,10 +19,24 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Heartrate" class="col-md-2 control-label"></label>
+            <label asp-for="HeartrateMax" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Heartrate" class="form-control" />
-                <span asp-validation-for="Heartrate" class="text-danger" />
+                <input asp-for="HeartrateMax" class="form-control" />
+                <span asp-validation-for="HeartrateMax" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="HeartrateMin" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="HeartrateMin" class="form-control" />
+                <span asp-validation-for="HeartrateMin" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="HeartrateAvg" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="HeartrateAvg" class="form-control" />
+                <span asp-validation-for="HeartrateAvg" class="text-danger" />
             </div>
         </div>
         <div class="form-group">

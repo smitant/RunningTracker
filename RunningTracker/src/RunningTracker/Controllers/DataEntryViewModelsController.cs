@@ -41,7 +41,11 @@ namespace RunningTracker.Controllers
                          select m;
             
             string user = User.Identity.Name;
-            if (!String.IsNullOrEmpty(searchString))
+            if (user == null)
+            {
+                return View("NoLoggedUser");
+            }
+            if (!string.IsNullOrEmpty(searchString))
             {
                 DateTime compareDate = DateTime.Parse(searchString);
                 dates = dates.Where(s => s.Date.Equals(compareDate));
@@ -84,7 +88,7 @@ namespace RunningTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Date,Heartrate,Steps")] DataEntryViewModel dataEntryViewModel)
+        public async Task<IActionResult> Create([Bind("ID,Date,HeartrateMin,HeartrateMax,HeartrateAvg,Steps")] DataEntryViewModel dataEntryViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -108,27 +112,10 @@ namespace RunningTracker.Controllers
         }
 
         // GET: DataEntryViewModels/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var dataEntryViewModel = await _context.DataEntryViewModel.SingleOrDefaultAsync(m => m.ID == id);
-            if (dataEntryViewModel == null)
-            {
-                return NotFound();
-            }
-            return View(dataEntryViewModel);
-        }
-
-        // POST: DataEntryViewModels/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Date,Heartrate,Steps")] DataEntryViewModel dataEntryViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Date,HeartrateMin,HeartrateMax,HeartrateAvg,Steps")] DataEntryViewModel dataEntryViewModel)
         {
             if (id != dataEntryViewModel.ID)
             {

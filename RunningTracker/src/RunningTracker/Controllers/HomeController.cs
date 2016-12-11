@@ -20,9 +20,9 @@ namespace RunningTracker.Controllers
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Help()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Your Help Page.";
 
             return View();
         }
