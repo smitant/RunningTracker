@@ -59,6 +59,12 @@ namespace WebApplication2.Controllers
             var dates = from m in _context.DataEntryViewModel
                         select m;
             string user = User.Identity.Name;
+            Console.Write(user);
+            if(user == "jane_Doe")
+            {
+                return View("Index_");
+            }
+            
             dates = dates.Where(s => s.Username.Equals(user));
 
             String[] date = new String[365];
@@ -73,20 +79,29 @@ namespace WebApplication2.Controllers
 
             foreach (DataEntryViewModel d in ob)
             {
+
+                ViewBag.Data[i].Date = d.Date.ToString();
+                ViewBag.Data[i].MaxHeart = d.HeartrateMax;
+                ViewBag.Data[i].AvgHeart = d.HeartrateAvg;
+                ViewBag.Data[i].MinHeart = d.HeartrateMin;
+                ViewBag.Data[i].Steps = d.Steps;
+
+                /*
                 date[i] = d.Date.ToString();
                 minHeart[i].d = d.HeartrateMin;
                 maxHeart[i].d = d.HeartrateMax;
                 avgHeart[i].d = d.HeartrateAvg;
                 steps[i].d = d.Steps;
                 i++;
+                */
             }
 
-            ViewBag.Date = date;
+   /*         ViewBag.Date = date;
             ViewBag.MinHeart = minHeart;
             ViewBag.MaxHeart = maxHeart;
             ViewBag.AvgHeart = avgHeart;
             ViewBag.Steps = steps;
-
+*/
 
             return RedirectToAction("Index");
 
