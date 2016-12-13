@@ -5,30 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApplication2.Controllers.GraphingController
+namespace WebApplication2.Controllers
 {
     public class GraphingController : Controller
     {
-
-
-
-
-
-
-
-
-
-
-
         // GET: Graphing
         public ActionResult Index()
         {
+            string user = User.Identity.Name;
+            if (user == null)
+            {
+                return View("NoLoggedUser");
+            }
+
             return View();
         }
 
         // GET: Graphing/Details/5
         public ActionResult Details(int id)
         {
+           
+
             return View();
         }
 

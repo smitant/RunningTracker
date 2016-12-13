@@ -30,6 +30,7 @@
 
             //have datatable sent in as a parameter, created in model
             var data1 = new google.visualization.DataTable();
+            //TODO
             //change from string to date or change when pulling from DB
             //string is discrete, date is continuous, might look better as
             //discrete
@@ -74,6 +75,7 @@
             data2.addColumn('number', 'Average Heartrate');
             data2.addColumn('number', 'Maximum Heartrate');
             //dates
+            //TODO
             data2.addRows([
               ['11/9/2016', 50, 75.5, 105],
               ['11/10/2016', 63, 72, 80],
@@ -84,7 +86,7 @@
 
             // Set chart options
             var options2 = {
-                'title': 'Heartrate Everyday',
+                'title': 'Heartrate Everyday measured in Beats Per Minutes (BPM)',
                 titleTextStyle: { fontSize: 24, bold: true },
                 //adjust vaxis for date formats
                 //adjust haxis for how squashed it is
@@ -110,29 +112,62 @@
 <body>
     <!--Div that will hold the line chart-->
 
-    <div id="lineChart_div"></div>
+    <div id="lineChart_div" style="margin:50px,inherit"></div>
 
     <!--Put formatting in between charts-->
     <hr>
 
-    <div id="colChart_div"></div>
+    <div id="colChart_div" style="margin:50px,inherit"></div>
 
     <hr>
-    <div id="displayStats" style="font-size:18px;background-color:#f1f1f1;box-shadow:0,2px,4px,0,rgba(0,0,0,0.16),0,2px,10px,0,rgba(0,0,0,0.12);display:block">
-        <p>
-            The average number of steps you take per day is: <div id="avgSteps" style="display:inline">
-                <!--Somehow insert data here, do calculation elsewhere-->
-            </div>
-            <br />
-            Your overall average heartrate is:
-            <br />
-            Your overall maximum heartrate is:
-            <br />
-            Your overal minimum heartrate is:
-        </p>
+    <div id="displayStats" style="margin:50px,inherit;font-size:18px;background-color:#f1f1f1;box-shadow:0,2px,4px,0,rgba(0,0,0,0.16),0,2px,10px,0,rgba(0,0,0,0.12);display:block">
+        <table id="statsTable">
+            <!--Actual table created in script below-->         
+        </table>
     </div>
+
     <script>
-        document.getElementById("avgSteps").innerHTML = 14;
+        var table = document.getElementById("statsTable");
+        var row1 = table.insertRow(0);
+        var cell1 = row1.insertCell(0);
+        var cell2 = row1.insertCell(1);
+        cell1.innerHTML = "The average number of steps you take per day is: &nbsp;&nbsp;&nbsp;";
+        cell2.innerHTML = avgSteps();//function call
+
+        var row2 = table.insertRow(1);
+        var cell3 = row2.insertCell(0);
+        var cell4 = row2.insertCell(1);
+        cell3.innerHTML = "Your overall average heartrate (BPM) is:";
+        cell4.innerHTML = avgHeartrate();//function call
+
+        var row3 = table.insertRow(2);
+        var cell5 = row3.insertCell(0);
+        var cell6 = row3.insertCell(1);
+        cell5.innerHTML = "Your overall maximum heartrate (BPM) is:";
+        cell6.innerHTML = maxHeartrate();//function call
+
+        var row4 = table.insertRow(3);
+        var cell7 = row4.insertCell(0);
+        var cell8 = row4.insertCell(1);
+        cell7.innerHTML = "Your overal minimum heartrate (BPM) is:";
+        cell8.innerHTML = minHeartrate();//function call
+   
+        function avgSteps() {
+            return 5000;
+        }
+
+        function avgHeartrate() {
+            return 78;
+        }
+
+        function maxHeartrate() {
+            return 120;
+        }
+
+        function minHeartrate() {
+            return 30;
+        }
+
     </script>
 </body>
 </html>
