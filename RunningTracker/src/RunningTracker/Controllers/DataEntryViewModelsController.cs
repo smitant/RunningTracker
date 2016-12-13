@@ -51,6 +51,7 @@ namespace RunningTracker.Controllers
                 dates = dates.Where(s => s.Date.Equals(compareDate));
             }
             dates = dates.Where(s => s.Username.Equals(user));
+            
 
             return View(await dates.ToListAsync());
         }
@@ -73,15 +74,15 @@ namespace RunningTracker.Controllers
         }
 
         // GET: DataEntryViewModels/Create
-        public IActionResult Create()
-        {
-            if (String.IsNullOrEmpty(User.Identity.Name))
-            {
-                
+               public IActionResult Create()
+               {
+                   if (String.IsNullOrEmpty(User.Identity.Name))
+                   {
 
-            }
-            return View();
-        }
+
+                   }
+                   return View();
+               }
 
         // POST: DataEntryViewModels/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -112,6 +113,21 @@ namespace RunningTracker.Controllers
         }
 
         // GET: DataEntryViewModels/Edit/5
+        // GET: DataEntryViewModels/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var dataEntryViewModel = await _context.DataEntryViewModel.SingleOrDefaultAsync(m => m.ID == id);
+            if (dataEntryViewModel == null)
+            {
+                return NotFound();
+            }
+            return View(dataEntryViewModel);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -126,6 +142,7 @@ namespace RunningTracker.Controllers
             {
                 try
                 {
+                    dataEntryViewModel.Username = User.Identity.Name;
                     _context.Update(dataEntryViewModel);
                     await _context.SaveChangesAsync();
                 }
